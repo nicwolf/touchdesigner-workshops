@@ -1,0 +1,7 @@
+# .gitignore
+
+# Jupyter Notebooks
+*.ipynb_checkpoints
+
+# Python
+*.pyc
