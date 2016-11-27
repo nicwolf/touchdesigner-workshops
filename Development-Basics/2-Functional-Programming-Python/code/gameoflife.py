@@ -11,7 +11,6 @@ Nicholas Wolf
 
 import numpy as np
 
-
 def create_board(height, width, p_alive):
     """
     This function creates a Game of Life game board.
@@ -38,12 +37,7 @@ def create_board(height, width, p_alive):
            [0, 0, 0],
            [0, 0, 0]])
     """
-    dead, alive = 0, 1
-    p_dead = 1 - p_alive # We know that if a cell is not alive, it must be dead
-    board = np.random.choice([dead, alive], p=[p_dead, p_alive], size=(height, width))
-    
-    return board
-
+    pass
 
 def count_living_neighbors(board, r, c):
     """
@@ -89,22 +83,30 @@ def compute_next_state(current_state, num_living_neighbors):
     ----------
         next_state : int
         
+    Notes
+    ----------
+        A reminder of the rules of Conway's Game of Life:
+            * Any live cell with fewer than two live neighbours dies, 
+              as if caused by under-population.
+            * Any live cell with two or three live neighbours lives 
+              on to the next generation.
+            * Any live cell with more than three live neighbours dies, 
+              as if by over-population.
+            * Any dead cell with exactly three live neighbours becomes a 
+              live cell, as if by reproduction.
     """
+    # Define our states
     dead, alive = 0, 1
-    next_state = dead
     
+    # Let's assume that the next state is the same as the current state
+    # unless we figure out otherwise.
+    next_state = current_state
+    
+    # Here is the first conditional statement, you fill out the rest!
     if (num_living_neighbors < 2) and (current_state == alive):
-        # Dies by under-population
         next_state = dead
-    elif ( 2 <= num_living_neighbors <= 3) and (current_state == alive):
-        # Survives on to the next generation
-        next_state = alive
-    elif (num_living_neighbors > 3) and (current_state == alive):
-        # Dies by over-population
-        next_state = dead
-    elif (num_living_neighbors == 3) and (current_state == dead):
-        # Live cell is birthed 
-        next_state = alive
+        
+    # TODO: 3 more conditional statements.
     
     return next_state
 
@@ -128,14 +130,15 @@ def step_forward(board):
         for c in range(cols):
             # Fetch the current state of this cell
             current_state = board[r, c]
-            # Count the number of living neighbors
-            num_living_neighbors = count_living_neighbors(board, r, c)
-            # Figure out if this cell will be alive or dead in the next board
-            next_state = compute_next_state(current_state, num_living_neighbors)
+            
+            # TODO: Count the number of living neighbors
+            # TODO: Figure out if this cell will be alive or dead in the next board,
+            #       define the variable `next_state`
+            
             # Set the state of this cell in the next board
             next_board[r, c] = next_state  
     
-    return next_board
+    pass
 
 def main():
     # Test everything out to see if it works.
@@ -150,4 +153,4 @@ def main():
     print(board)
     
 if __name__ == '__main__':
-    main()    
+    main()
